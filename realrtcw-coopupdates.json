@@ -1,10 +1,10 @@
 [
     {
-        "UpdateStageName": "Check SteamCMD Bootstrap Cache",
+        "UpdateStageName": "RealRTCW SteamCMD Environment Check",
         "UpdateSourcePlatform": "Linux",
         "UpdateSource": "Executable",
         "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Checking SteamCMD bootstrap cache'; if [ -f /home/amp/Steam/package/steam_cmd_linux.manifest ] && head -c 32 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Removing corrupt HTML SteamCMD manifest'; rm -f /home/amp/Steam/package/steam_cmd_linux.manifest /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; fi\"",
+        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Pre-SteamCMD environment check'; echo '[RealRTCW] User:' $(id -un) 'Home:' $HOME 'Host:' $(hostname); echo '[RealRTCW] Image marker:' $(cat /etc/os-release 2>/dev/null | grep '^PRETTY_NAME=' | cut -d= -f2- | tr -d '\\\"'); if [ -f /home/amp/Steam/package/steam_cmd_linux.manifest ] && head -c 32 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Removing corrupt HTML SteamCMD manifest'; rm -f /home/amp/Steam/package/steam_cmd_linux.manifest /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; fi\"",
         "SkipOnFailure": true
     },
     {
