@@ -26,7 +26,8 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 
 - RealRTCW is Steam app `1379630`, and the Steam depot includes `coop/RTCWCoopDED.x64.exe` plus `coop/coopmain`.
 - RealRTCW is a Steam client/mod app rather than a standalone anonymous dedicated-server depot. AMP is configured to prompt for a Steam login for updates; use an account that can install RealRTCW and has access to the needed Return to Castle Wolfenstein content.
-- Linux hosts run the Windows dedicated server through Wine. The template uses `cubecoders/ampbase:wine-stable`, matching the style used by other Greelan-authored Wine-backed templates.
+- Linux hosts run the Windows dedicated server through Wine inside AMP's container runtime. The template uses `cubecoders/ampbase:wine-stable` and marks Linux containers as required, so AMP/ADS should run it through Docker or Podman rather than directly on the host.
+- The update sequence clears stale SteamCMD bootstrap manifest/cache files on Linux before invoking SteamCMD. This is to avoid SteamCMD parsing an HTML error page as its package manifest.
 - RTCWCoop registers `coopmap` and `coopdevmap`, so the startup map command uses those instead of stock `map`/`devmap`.
 - RTCWCoop game types are `0` Battle, `1` Speedrun, `2` Classes, and `3` Cooperative. The source default is `2` Classes, so the AMP default follows that.
 - Player join parsing uses `ClientUserinfoChanged` so AMP can capture the username. Disconnect logs usually only include the client slot, so the leave regex captures `sessionid` rather than username.
