@@ -25,9 +25,9 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 ## Notes And Limits
 
 - Return to Castle Wolfenstein is Steam app `9010`. RealRTCW is Steam app `1379630`.
-- RealRTCW is a free modification for Return to Castle Wolfenstein, so the update sequence installs the paid RTCW base game first and then downloads RealRTCW/RTCWCoop into the same base directory.
+- RealRTCW is a free modification for Return to Castle Wolfenstein, so the update sequence installs the paid RTCW base game first and then overlays RealRTCW/RTCWCoop into the RTCW `9010` directory.
 - SteamCMD must use a Steam account that owns Return to Castle Wolfenstein. The template prompts for Steam credentials rather than using anonymous login.
-- Startup points `fs_basepath` at the shared install directory for the RTCW base assets and `fs_homepath` at `coop` so the generated `coop/coopmain/server.cfg` is used.
+- Startup points `fs_basepath` at the `9010` install directory for the RTCW base assets and `fs_homepath` at `9010/coop` so the generated `coop/coopmain/server.cfg` is used.
 - Linux hosts should run the Windows dedicated server through Wine inside AMP's container runtime. The template uses the Greelan-style `cubecoders/ampbase:wine-stable` image and recommends Docker/Podman on Linux.
 - The update sequence uses AMP's normal SteamCMD stage. It does not modify the shared SteamCMD bootstrapper or package cache directly.
 - RTCWCoop registers `coopmap` and `coopdevmap`, so the startup map command uses those instead of stock `map`/`devmap`.
