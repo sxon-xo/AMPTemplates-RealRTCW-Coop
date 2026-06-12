@@ -25,7 +25,7 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 ## Notes And Limits
 
 - RealRTCW is Steam app `1379630`, and the Steam depot includes `coop/RTCWCoopDED.x64.exe` plus `coop/coopmain`.
-- Steam describes RealRTCW as a free mod, but it requires the original Return to Castle Wolfenstein install to play. SteamCMD behavior can vary depending on account ownership and package visibility. If anonymous SteamCMD fails, disable anonymous update behavior in the template or let AMP prompt for a Steam account that owns the required content.
+- RealRTCW is a Steam client/mod app rather than a standalone anonymous dedicated-server depot. AMP is configured to prompt for a Steam login for updates; use an account that can install RealRTCW and has access to the needed Return to Castle Wolfenstein content.
 - Linux hosts run the Windows dedicated server through Wine. The template uses `cubecoders/ampbase:wine-stable`, matching the style used by other Greelan-authored Wine-backed templates.
 - RTCWCoop registers `coopmap` and `coopdevmap`, so the startup map command uses those instead of stock `map`/`devmap`.
 - RTCWCoop game types are `0` Battle, `1` Speedrun, `2` Classes, and `3` Cooperative. The source default is `2` Classes, so the AMP default follows that.
