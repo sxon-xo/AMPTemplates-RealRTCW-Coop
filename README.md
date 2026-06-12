@@ -10,7 +10,7 @@ This is designed to be loaded from your own GitHub repository rather than submit
 - `realrtcw-coopconfig.json` - panel settings manifest.
 - `realrtcw-coopmetaconfig.json` - writes `coop/coopmain/server.cfg`.
 - `realrtcw-coopports.json` - default UDP game/RCON port.
-- `realrtcw-coopupdates.json` - SteamCMD app download and Linux Wine init.
+- `realrtcw-coopupdates.json` - RTCW base game download, RealRTCW/RTCWCoop download, and Linux Wine init.
 
 ## Loading In AMP From Your GitHub Repo
 
@@ -24,8 +24,9 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 
 ## Notes And Limits
 
-- RealRTCW is Steam app `1379630`, and the Steam depot includes `coop/RTCWCoopDED.x64.exe` plus `coop/coopmain`.
-- RealRTCW is a free Steam client/mod app rather than a standalone dedicated-server depot. AMP uses its standard SteamCMD flow with anonymous login first; if Steam later requires account ownership, switch the template to a prompted login.
+- Return to Castle Wolfenstein is Steam app `9010`. RealRTCW is Steam app `1379630`.
+- RealRTCW is a free modification for Return to Castle Wolfenstein, so the update sequence installs the paid RTCW base game first and then downloads RealRTCW/RTCWCoop into the same base directory.
+- SteamCMD must use a Steam account that owns Return to Castle Wolfenstein. The template prompts for Steam credentials rather than using anonymous login.
 - Linux hosts should run the Windows dedicated server through Wine inside AMP's container runtime. The template uses the Greelan-style `cubecoders/ampbase:wine-stable` image and recommends Docker/Podman on Linux.
 - The update sequence uses AMP's normal SteamCMD stage. It does not modify the shared SteamCMD bootstrapper or package cache directly.
 - RTCWCoop registers `coopmap` and `coopdevmap`, so the startup map command uses those instead of stock `map`/`devmap`.
@@ -35,7 +36,8 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 
 ## Verified Reference Points
 
+- Return to Castle Wolfenstein Steam app ID: `9010`.
 - RealRTCW Steam app ID: `1379630`.
 - RealRTCW depot path for the dedicated coop server: `coop/RTCWCoopDED.x64.exe`.
-- RTCWCoop source cvars used for the settings panel include `g_gameskill`, `g_spawnpoints`, `g_sharedlives`, `g_limbotime`, `g_reinforce`, `g_antilag`, `g_voteFlags`, and rotating MOTD cvars.
+- RTCWCoop source cvars used for the settings panel include `g_gameskill`, `g_spawnpoints`, `g_sharedlives`, `g_limbotime`, `g_reinforce`, `g_fastres`, `g_antilag`, `g_voteFlags`, and rotating MOTD cvars.
 - RTCWCoop/iortcw log strings used for regex: `ClientUserinfoChanged`, `ClientDisconnect`, and `say`/`sayteam`/`say_limbo`.
