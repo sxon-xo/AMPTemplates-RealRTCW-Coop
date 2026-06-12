@@ -1,5 +1,13 @@
 [
     {
+        "UpdateStageName": "Runtime Diagnostics",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Template diagnostics v18'; echo '[RealRTCW] User/Home/PWD:'; id; printf 'HOME=%s PWD=%s\\n' \\\"$HOME\\\" \\\"$PWD\\\"; echo '[RealRTCW] OS:'; cat /etc/os-release 2>/dev/null | sed -n '1,6p'; echo '[RealRTCW] Steam directory:'; ls -la /home/amp/Steam /home/amp/Steam/public /home/amp/Steam/package 2>/dev/null || true; echo '[RealRTCW] Steam bootstrap logs:'; for f in /home/amp/Steam/logs/bootstrap_log.txt /home/amp/Steam/logs/stderr.txt; do [[ -f \\\"$f\\\" ]] && { echo \\\"--- $f ---\\\"; sed -n '1,80p' \\\"$f\\\"; }; done; echo '[RealRTCW] Proxy vars:'; env | grep -Ei '^(http|https|all|no)_proxy=' || true\"",
+        "SkipOnFailure": true
+    },
+    {
         "UpdateStageName": "Return to Castle Wolfenstein Download",
         "UpdateSourcePlatform": "All",
         "UpdateSource": "SteamCMD",
