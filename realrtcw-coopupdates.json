@@ -1,10 +1,10 @@
 [
     {
-        "UpdateStageName": "RealRTCW SteamCMD Environment Check",
+        "UpdateStageName": "RealRTCW SteamCMD Endpoint Diagnostics",
         "UpdateSourcePlatform": "Linux",
         "UpdateSource": "Executable",
         "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Pre-SteamCMD environment check'; echo '[RealRTCW] User:' $(id -un) 'Home:' $HOME 'Host:' $(hostname); echo '[RealRTCW] Image marker:' $(cat /etc/os-release 2>/dev/null | grep '^PRETTY_NAME=' | cut -d= -f2- | tr -d '\\\"'); if [ -f /home/amp/Steam/package/steam_cmd_linux.manifest ] && head -c 32 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Removing corrupt HTML SteamCMD manifest'; rm -f /home/amp/Steam/package/steam_cmd_linux.manifest /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; fi\"",
+        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Pre-SteamCMD environment check'; echo '[RealRTCW] User:' $(id -un) 'Home:' $HOME 'Host:' $(hostname); echo '[RealRTCW] Image marker:' $(grep '^PRETTY_NAME=' /etc/os-release 2>/dev/null | cut -d= -f2- | tr -d '\\\"'); echo '[RealRTCW] Proxy vars:' $(env | grep -Ei '^(http|https|all|no)_proxy=' | tr '\\n' ' '); echo '[RealRTCW] Existing Steam manifests:'; find /home/amp/Steam -maxdepth 4 -type f \\( -name '*manifest*' -o -name 'steam_cmd_linux.*' \\) -print 2>/dev/null | while read f; do echo '[RealRTCW] File:' $f; head -c 160 $f 2>/dev/null | tr '\\n' ' '; echo; done; for u in https://media.steampowered.com/client/steam_cmd_linux https://client-update.akamai.steamstatic.com/steam_cmd_linux http://media.steampowered.com/client/steam_cmd_linux; do echo '[RealRTCW] Probe:' $u; wget --server-response --max-redirect=0 -O - -T 15 $u 2>&1 | head -c 600 | tr '\\n' ' '; echo; done; if [ -f /home/amp/Steam/package/steam_cmd_linux.manifest ] && head -c 256 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Removing corrupt HTML SteamCMD manifest'; rm -f /home/amp/Steam/package/steam_cmd_linux.manifest /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; fi\"",
         "SkipOnFailure": true
     },
     {
