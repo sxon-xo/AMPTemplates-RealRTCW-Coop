@@ -5,6 +5,7 @@
         "UpdateSource": "SteamCMD",
         "UpdateSourceData": "1379630",
         "UpdateSourceArgs": "1379630",
+        "UpdateSourceTarget": "{{$FullBaseDir}}",
         "ForceDownloadPlatform": "Windows",
         "UpdateSourceConditionSetting": "DisableSteamDownload",
         "UpdateSourceConditionValue": "false",
