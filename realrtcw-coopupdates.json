@@ -1,5 +1,13 @@
 [
     {
+        "UpdateStageName": "Clean SteamCMD Bootstrap Cache",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"rm -f /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.manifest /home/amp/Steam/package/steam_cmd_linux.zip /home/amp/Steam/package/*.tmp /home/amp/Steam/package/*.patch >/dev/null 2>&1 || true\"",
+        "SkipOnFailure": true
+    },
+    {
         "UpdateStageName": "SteamCMD Download",
         "UpdateSourcePlatform": "All",
         "UpdateSource": "SteamCMD",
@@ -15,7 +23,7 @@
         "UpdateSourcePlatform": "Linux",
         "UpdateSource": "Executable",
         "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"WINEPREFIX=\\\"{{$FullRootDir}}.wine\\\" WINEARCH=win64 WINEDEBUG=-all /usr/bin/wineboot --init\"",
+        "UpdateSourceArgs": "-c \"rm -rf \\\"{{$FullRootDir}}.wine\\\" >/dev/null 2>&1; WINEPREFIX=\\\"{{$FullRootDir}}.wine\\\" WINEARCH=win64 WINEDEBUG=-all /usr/bin/wineboot --init --update\"",
         "SkipOnFailure": false
     }
 ]
