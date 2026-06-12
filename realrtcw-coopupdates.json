@@ -1,11 +1,11 @@
 [
     {
-        "UpdateStageName": "Rebuild SteamCMD Bootstrap Cache",
+        "UpdateStageName": "Check SteamCMD Bootstrap Cache",
         "UpdateSourcePlatform": "Linux",
         "UpdateSource": "Executable",
         "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Rebuilding SteamCMD bootstrap cache'; rm -rf /home/amp/Steam/package /home/amp/Steam/appcache/httpcache >/dev/null 2>&1 || true; mkdir -p /home/amp/Steam/package\"",
-        "SkipOnFailure": false
+        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Checking SteamCMD bootstrap cache'; if [ -f /home/amp/Steam/package/steam_cmd_linux.manifest ] && head -c 32 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Removing corrupt HTML SteamCMD manifest'; rm -f /home/amp/Steam/package/steam_cmd_linux.manifest /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; fi\"",
+        "SkipOnFailure": true
     },
     {
         "UpdateStageName": "SteamCMD Download",
