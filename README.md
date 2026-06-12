@@ -27,7 +27,7 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 - RealRTCW is Steam app `1379630`, and the Steam depot includes `coop/RTCWCoopDED.x64.exe` plus `coop/coopmain`.
 - RealRTCW is a Steam client/mod app rather than a standalone anonymous dedicated-server depot. AMP is configured to prompt for a Steam login for updates; use an account that can install RealRTCW and has access to the needed Return to Castle Wolfenstein content.
 - Linux hosts run the Windows dedicated server through Wine inside AMP's container runtime. The template uses the Greelan-style `cubecoders/ampbase:wine-stable` image and sets Docker/Podman as required so AMP/ADS does not fall back to the host SteamCMD/Wine runtime.
-- The update sequence prints SteamCMD endpoint diagnostics, refreshes the local SteamCMD bootstrapper files from Valve, and pre-seeds SteamCMD's Linux package manifest before invoking AMP's normal SteamCMD stage. AMP still performs the Steam install/update.
+- The update sequence uses AMP's normal SteamCMD stage. It does not modify the shared SteamCMD bootstrapper or package cache directly.
 - RTCWCoop registers `coopmap` and `coopdevmap`, so the startup map command uses those instead of stock `map`/`devmap`.
 - RTCWCoop game types are `0` Battle, `1` Speedrun, `2` Classes, and `3` Cooperative. The source default is `2` Classes, so the AMP default follows that.
 - Player join parsing uses `ClientUserinfoChanged` so AMP can capture the username. Disconnect logs usually only include the client slot, so the leave regex captures `sessionid` rather than username.
@@ -37,5 +37,5 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 
 - RealRTCW Steam app ID: `1379630`.
 - RealRTCW depot path for the dedicated coop server: `coop/RTCWCoopDED.x64.exe`.
-- RTCWCoop source cvars used for the settings panel include `g_gameskill`, `g_spawnpoints`, `g_sharedlives`, `g_limbotime`, `g_reinforce`, `g_fastres`, `g_antilag`, `g_voteFlags`, and rotating MOTD cvars.
+- RTCWCoop source cvars used for the settings panel include `g_gameskill`, `g_spawnpoints`, `g_sharedlives`, `g_limbotime`, `g_reinforce`, `g_antilag`, `g_voteFlags`, and rotating MOTD cvars.
 - RTCWCoop/iortcw log strings used for regex: `ClientUserinfoChanged`, `ClientDisconnect`, and `say`/`sayteam`/`say_limbo`.
