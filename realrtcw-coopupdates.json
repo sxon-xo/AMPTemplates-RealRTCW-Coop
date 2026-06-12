@@ -1,29 +1,5 @@
 [
     {
-        "UpdateStageName": "RealRTCW SteamCMD Endpoint Diagnostics",
-        "UpdateSourcePlatform": "Linux",
-        "UpdateSource": "Executable",
-        "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Pre-SteamCMD environment check'; echo '[RealRTCW] User:' $(id -un) 'Home:' $HOME 'Host:' $(hostname); echo '[RealRTCW] Image marker:' $(grep '^PRETTY_NAME=' /etc/os-release 2>/dev/null | cut -d= -f2- | tr -d '\\\"'); echo '[RealRTCW] Proxy vars:' $(env | grep -Ei '^(http|https|all|no)_proxy=' | tr '\\n' ' '); echo '[RealRTCW] Existing Steam manifests:'; find /home/amp/Steam -maxdepth 4 -type f \\( -name '*manifest*' -o -name 'steam_cmd_linux.*' \\) -print 2>/dev/null | while read f; do echo '[RealRTCW] File:' $f; head -c 160 $f 2>/dev/null | tr '\\n' ' '; echo; done; for u in https://media.steampowered.com/client/steam_cmd_linux https://client-update.akamai.steamstatic.com/steam_cmd_linux http://media.steampowered.com/client/steam_cmd_linux; do echo '[RealRTCW] Probe:' $u; wget --server-response --max-redirect=0 -O - -T 15 $u 2>&1 | head -c 600 | tr '\\n' ' '; echo; done; if [ -f /home/amp/Steam/package/steam_cmd_linux.manifest ] && head -c 256 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Removing corrupt HTML SteamCMD manifest'; rm -f /home/amp/Steam/package/steam_cmd_linux.manifest /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; fi\"",
-        "SkipOnFailure": true
-    },
-    {
-        "UpdateStageName": "Refresh SteamCMD Bootstrapper",
-        "UpdateSourcePlatform": "Linux",
-        "UpdateSource": "Executable",
-        "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Refreshing SteamCMD bootstrapper'; mkdir -p /home/amp/Steam; rm -f /tmp/steamcmd_linux.tar.gz; wget -qO /tmp/steamcmd_linux.tar.gz https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz || wget -qO /tmp/steamcmd_linux.tar.gz https://media.steampowered.com/client/installer/steamcmd_linux.tar.gz; tar -xzf /tmp/steamcmd_linux.tar.gz -C /home/amp/Steam; chmod +x /home/amp/Steam/steamcmd.sh; rm -f /tmp/steamcmd_linux.tar.gz /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; echo '[RealRTCW] SteamCMD bootstrapper refreshed'\"",
-        "SkipOnFailure": false
-    },
-    {
-        "UpdateStageName": "Preseed SteamCMD Package Manifest",
-        "UpdateSourcePlatform": "Linux",
-        "UpdateSource": "Executable",
-        "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Preseeding SteamCMD package manifest'; mkdir -p /home/amp/Steam/package; rm -f /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; wget -qO /home/amp/Steam/package/steam_cmd_linux.manifest https://media.steampowered.com/client/steam_cmd_linux || wget -qO /home/amp/Steam/package/steam_cmd_linux.manifest https://client-update.akamai.steamstatic.com/steam_cmd_linux; echo '[RealRTCW] Manifest preview:' $(head -c 80 /home/amp/Steam/package/steam_cmd_linux.manifest | tr '\\n' ' '); if head -c 256 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Valve manifest download returned HTML'; exit 1; fi\"",
-        "SkipOnFailure": false
-    },
-    {
         "UpdateStageName": "SteamCMD Download",
         "UpdateSourcePlatform": "All",
         "UpdateSource": "SteamCMD",
