@@ -8,6 +8,14 @@
         "SkipOnFailure": true
     },
     {
+        "UpdateStageName": "Refresh SteamCMD Bootstrapper",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Refreshing SteamCMD bootstrapper'; mkdir -p /home/amp/Steam; rm -f /tmp/steamcmd_linux.tar.gz; wget -qO /tmp/steamcmd_linux.tar.gz https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz || wget -qO /tmp/steamcmd_linux.tar.gz https://media.steampowered.com/client/installer/steamcmd_linux.tar.gz; tar -xzf /tmp/steamcmd_linux.tar.gz -C /home/amp/Steam; chmod +x /home/amp/Steam/steamcmd.sh; rm -f /tmp/steamcmd_linux.tar.gz /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; echo '[RealRTCW] SteamCMD bootstrapper refreshed'\"",
+        "SkipOnFailure": false
+    },
+    {
         "UpdateStageName": "Preseed SteamCMD Package Manifest",
         "UpdateSourcePlatform": "Linux",
         "UpdateSource": "Executable",
