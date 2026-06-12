@@ -28,7 +28,7 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 - RealRTCW is a free modification for Return to Castle Wolfenstein, so the update sequence installs the paid RTCW base game first and then overlays RealRTCW/RTCWCoop into the RTCW `9010` directory.
 - SteamCMD must use a Steam account that owns Return to Castle Wolfenstein. The template prompts for Steam credentials rather than using anonymous login.
 - Startup points `fs_basepath` at the `9010` install directory for the RTCW base assets and `fs_homepath` at `9010/coop` so the generated `coop/coopmain/server.cfg` is used.
-- Linux hosts should run the Windows dedicated server through Wine inside AMP's container runtime. The template uses Greelan's newer `cubecoders/ampbase:wine-10-stable` image and recommends Docker/Podman on Linux.
+- Linux hosts should run the Windows dedicated server through Wine inside AMP's container runtime. The template uses `cubecoders/ampbase:debian` with Wine installed as instance packages so SteamCMD runs in the same base environment as native templates such as Barotrauma.
 - The update sequence uses AMP's normal SteamCMD stage. It does not modify the shared SteamCMD bootstrapper or package cache directly.
 - RTCWCoop registers `coopmap` and `coopdevmap`, so the startup map command uses those instead of stock `map`/`devmap`.
 - RTCWCoop game types are `0` Battle, `1` Speedrun, `2` Classes, and `3` Cooperative. The source default is `2` Classes, so the AMP default follows that.
