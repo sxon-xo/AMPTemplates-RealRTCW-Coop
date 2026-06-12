@@ -8,6 +8,14 @@
         "SkipOnFailure": true
     },
     {
+        "UpdateStageName": "Preseed SteamCMD Package Manifest",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"echo '[RealRTCW] Preseeding SteamCMD package manifest'; mkdir -p /home/amp/Steam/package; rm -f /home/amp/Steam/package/steam_cmd_linux.installed /home/amp/Steam/package/steam_cmd_linux.zip; wget -qO /home/amp/Steam/package/steam_cmd_linux.manifest https://media.steampowered.com/client/steam_cmd_linux || wget -qO /home/amp/Steam/package/steam_cmd_linux.manifest https://client-update.akamai.steamstatic.com/steam_cmd_linux; echo '[RealRTCW] Manifest preview:' $(head -c 80 /home/amp/Steam/package/steam_cmd_linux.manifest | tr '\\n' ' '); if head -c 256 /home/amp/Steam/package/steam_cmd_linux.manifest | grep -qi '<!DOCTYPE'; then echo '[RealRTCW] Valve manifest download returned HTML'; exit 1; fi\"",
+        "SkipOnFailure": false
+    },
+    {
         "UpdateStageName": "SteamCMD Download",
         "UpdateSourcePlatform": "All",
         "UpdateSource": "SteamCMD",
