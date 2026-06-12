@@ -1,6 +1,18 @@
 [
     {
-        "UpdateStageName": "SteamCMD Download",
+        "UpdateStageName": "Return to Castle Wolfenstein Download",
+        "UpdateSourcePlatform": "All",
+        "UpdateSource": "SteamCMD",
+        "UpdateSourceData": "9010",
+        "UpdateSourceArgs": "9010",
+        "UpdateSourceTarget": "{{$FullBaseDir}}",
+        "ForceDownloadPlatform": "Windows",
+        "UpdateSourceConditionSetting": "DisableSteamDownload",
+        "UpdateSourceConditionValue": "false",
+        "SkipOnFailure": false
+    },
+    {
+        "UpdateStageName": "RealRTCW Coop Download",
         "UpdateSourcePlatform": "All",
         "UpdateSource": "SteamCMD",
         "UpdateSourceData": "1379630",
