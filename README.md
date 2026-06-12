@@ -10,7 +10,7 @@ This is designed to be loaded from your own GitHub repository rather than submit
 - `realrtcw-coopconfig.json` - panel settings manifest.
 - `realrtcw-coopmetaconfig.json` - writes `coop/coopmain/server.cfg`.
 - `realrtcw-coopports.json` - default UDP game/RCON port.
-- `realrtcw-coopupdates.json` - SteamCMD bootstrap preload, RTCW base game download, RealRTCW/RTCWCoop download, and Linux Wine init.
+- `realrtcw-coopupdates.json` - SteamCMD bootstrap preload, RTCW base game download, RealRTCW/RTCWCoop overlay download, and Linux Wine init.
 
 ## Loading In AMP From Your GitHub Repo
 
@@ -29,7 +29,7 @@ If your AMP build asks for a raw template URL instead of a repository URL, use t
 - SteamCMD must use a Steam account that owns Return to Castle Wolfenstein. The template prompts for Steam credentials rather than using anonymous login.
 - Startup points `fs_basepath` at the `9010` install directory for the RTCW base assets and `fs_homepath` at `9010/coop` so the generated `coop/coopmain/server.cfg` is used.
 - Linux hosts should run the Windows dedicated server through Wine inside AMP's container runtime. The template uses `cubecoders/ampbase:debian` with Wine installed as instance packages so SteamCMD runs in the same base environment as native templates such as Barotrauma.
-- The Linux update flow preloads Valve's SteamCMD bootstrap packages with `curl` before AMP's SteamCMD stage. This is scoped to the RealRTCW instance working directory and avoids the first-run SteamCMD bootstrap parser error seen on this host.
+- The Linux update flow preloads Valve's SteamCMD bootstrap archive and packages with `curl` before AMP's SteamCMD stage. This seeds both the instance working directory and the container user's Steam root to avoid the first-run SteamCMD bootstrap parser error seen on this host.
 - The update sequence uses AMP's normal SteamCMD stage after the preload. It does not modify other templates or a host-level shared SteamCMD install.
 - RTCWCoop registers `coopmap` and `coopdevmap`, so the startup map command uses those instead of stock `map`/`devmap`.
 - RTCWCoop game types are `0` Battle, `1` Speedrun, `2` Classes, and `3` Cooperative. The source default is `2` Classes, so the AMP default follows that.
